@@ -15,7 +15,7 @@ while  running:
     table.add_column("Tittle",justify="left", style="magenta")
     table.add_column("Last change", justify="left",)
 
-    table.add_row("05.09.2022 | 04:56", "The Elvis projects", "05.09.2022 | 04:57")
+    table.add_row("05.09.2022 | 04:56", "The Elvis project", "05.09.2022 | 04:57")
 
     console = Console()
 
