@@ -1,24 +1,31 @@
 import psycopg2
 import os
+from  sql_commands import commands
 
 
 user = os.environ["POSTGRESUSER"]
 sql_pw = os.environ["POSTGRESQLPW"]
 sql_ip = os.environ["POSTGRESQLIP"]
 
-conn = psycopg2.connect(
-    database="postgres", user=user, password=sql_pw, host=sql_ip, port="8080"
-)
 
-#Creating a cursor object using the cursor() method
-cursor = conn.cursor()
+try:
 
-#Executing an MYSQL function using the execute() method
-cursor.execute("select version()")
+    conn = psycopg2.connect(
+        database="postgres", user=user, password=sql_pw, host=sql_ip, port="5432"
+    )
 
-# Fetch a single row using fetchone() method.
-data = cursor.fetchone()
-print("Connection established to: ",data)
+    #Creating a cursor object using the cursor() method
+    cursor = conn.cursor()
 
-#Closing the connection
-conn.close()
+    #Executing an MYSQL function using the execute() method
+    cursor.execute("select version()")
+
+    for command in commands:
+        cursor.execute(command)
+
+
+    conn.commit()
+    conn.close()
+
+except(Exception, psycopg2.DatabaseError) as error:
+    print(error)
