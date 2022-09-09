@@ -36,21 +36,31 @@ def run_it():
     running = True
     main_console = TheMainConsole()
     main_console.showing_the_table(data=main_console.loading_json_data())
+    running_in_project = True
     while  running:
         user_decision = input("Please chose: ")
 
-        if "close" in user_decision:
+        if "close main" in user_decision:  # shut down the program
             running = False
 
-        if "new" in user_decision:
+        if "new project" in user_decision:  # creating new project
             json_data.adding_data(title=user_decision.split("new")[1],
                                   creation_time=now.strftime("%m.%d.%y | %H:%M:%S"))
             main_console.showing_the_table(data=main_console.loading_json_data())
 
-
-
-        if "check" in user_decision:
+        if "check project" in user_decision:  # checking the  project
             print(user_decision.split("check")[1])
+            while running_in_project:
+                print(user_decision.split("check")[1])
+                user_decision_project = input("Chose:")
+
+                if "close project" in user_decision_project:
+                    main_console.showing_the_table(data=main_console.loading_json_data())
+                    running_in_project = False
+
+        if "delete project" in user_decision:
+            pass
+
 
 
 
