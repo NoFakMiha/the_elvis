@@ -1,7 +1,7 @@
 import json
 
 
-class JasonHelper:
+class JsonHelper:
     def __init__(self):
         self.x = '{"The Elvis":{"date of creation":"05.09.2022 | 04:56", "last change":"05.09.2022 | 04:57"}}'
 

@@ -2,12 +2,12 @@ import rich
 from rich.console import  Console
 from rich.table import Table
 import os
-from json_helper import JasonHelper
+from json_helper import JsonHelper
 from datetime import datetime
 
 
 
-json_data = JasonHelper()
+json_data = JsonHelper()
 now = datetime.now()
 
 class TheMainConsole:
