@@ -20,6 +20,7 @@ class TheMainConsole:
 
     def showing_the_table(self, data):
         extracting_data = data
+        print("Here i am")
         table = Table(title="Your list of projects")
         table.add_column("Created", justify="left", style="cyan", no_wrap=True)
         table.add_column("Title", justify="left", style="magenta")
