@@ -6,11 +6,12 @@ class JsonHelper:
         sql_obj = SqlHelper()
 
         self.data = sql_obj.get_data()  # get the data from data_base_helper | get data function
-        self.clean_data = json.dumps(self.data[0][1]) #
+
+        self.list_clean_data = [json.dumps(x[1]) for x in self.data]
 
     def opening_data(self):
 
-        return json.loads(self.clean_data)
+        return self.list_clean_data
 
     def adding_project(self, title, creation_time):
         sql_obj = SqlHelper()
