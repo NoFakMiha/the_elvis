@@ -20,7 +20,15 @@ class SqlHelper:
             print(error)
 
 
+
     def get_data(self):
+        data = self.cursor.execute(
+            '''
+            SELECT * FROM projects;
+            '''
+
+        )
+
         return self.cursor.fetchall()
 
 
@@ -33,11 +41,18 @@ class SqlHelper:
             VALUES
             ({data})
             ''')
-            self.conn.commit()
-            self.conn.close()
+            self.commit_()
+            self.close_connection()
+
 
         except(Exception, psycopg2.DatabaseError) as error:
             print(error)
+
+    def commit_(self):
+        self.conn.commit()
+
+    def close_connection(self):
+        self.conn.close()
 
 
 
