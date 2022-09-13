@@ -34,6 +34,18 @@ class TheMainConsole:
         console = Console()
         console.print(table)
 
+    def showing_task_table(self, data):
+        task_table = Table(title="Place Holder Project Name")
+        task_table.add_column("To do", justify="left")
+        task_table.add_column("Working on", justify="left")
+        task_table.add_column("Testing")
+        task_table.add_column("Debug")
+        task_table.add_column("Done")
+
+        console = Console()
+        console.print(task_table)
+
+
 
 
 
@@ -58,6 +70,7 @@ def run_it():
 
         if "check" in user_decision:  # checking the  project
             while running_in_project:
+                main_console.showing_task_table(data="Nothing")
                 user_decision_in_the_project = input("The task:")
 
                 if "new" in user_decision_in_the_project:
