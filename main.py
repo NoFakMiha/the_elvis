@@ -84,6 +84,8 @@ def run_it():
         if "delete" in user_decision:
             title_to_delete = user_decision.split("delete")[1]
             json_data.delete_the_project(title_to_delete=title_to_delete)
+            refresh_after_delete = JsonHelper()
+            main_console.showing_the_table(refresh_after_delete.opening_data())
 
 
 
