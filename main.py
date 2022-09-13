@@ -43,20 +43,22 @@ def run_it():
     main_console.showing_the_table(data=main_console.loading_json_data())
     running_in_project = True
     while  running:
-        user_decision = input("Chose the project: ")
+        user_decision = input("The project: ")
         # commands
         if "close" in user_decision:  # shut down the program
             running = False
 
         if "new" in user_decision:  # creating new project
-            json_data.adding_project(title=user_decision.split("new")[1],
+            json_data.adding_project(title=user_decision.split("new")[1], # TODO: it is also taking space with it
                                      creation_time=now.strftime("%m.%d.%y | %H:%M:%S"))
 
-            main_console.showing_the_table(data=main_console.loading_json_data())
+            refresh = JsonHelper()
+            new_refreshed_data = refresh.opening_data()
+            main_console.showing_the_table(data=new_refreshed_data)
 
         if "check" in user_decision:  # checking the  project
             while running_in_project:
-                user_decision_in_the_project = input("Chose the task:")
+                user_decision_in_the_project = input("The task:")
 
                 if "new" in user_decision_in_the_project:
                     pass

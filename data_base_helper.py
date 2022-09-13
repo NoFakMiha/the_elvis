@@ -18,13 +18,14 @@ class SqlHelper:
             )
             self.cursor = self.conn.cursor()
 
+
         except(Exception, psycopg2.DatabaseError) as error:
             print(error)
 
 
 
     def get_data(self):
-        data = self.cursor.execute(
+        self.cursor.execute(
             '''
             SELECT * FROM projects;
             '''
