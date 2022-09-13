@@ -1,3 +1,5 @@
+import json
+
 import psycopg2
 import os
 
@@ -39,7 +41,7 @@ class SqlHelper:
             self.cursor.execute(f'''
             INSERT INTO projects(data)
             VALUES
-            ({data})
+            ('{data}')
             ''')
             self.commit_()
             self.close_connection()

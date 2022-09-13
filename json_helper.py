@@ -15,5 +15,5 @@ class JsonHelper:
 
     def adding_project(self, title, creation_time):
         sql_obj = SqlHelper()
-        new_project = {title:{"date of creation":{creation_time},"last change":creation_time}}
+        new_project = json.dumps({f"{title}":{"date of creation":creation_time,"last change":creation_time}})
         sql_obj.writing_into_database(new_project)
