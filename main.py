@@ -23,8 +23,8 @@ class TheMainConsole:
         extracting_data = data
 
         table = Table(title="Your list of projects")
-        table.add_column("Created", justify="left", style="cyan", no_wrap=True)
-        table.add_column("Title", justify="left", style="magenta")
+        table.add_column("Title", justify="left", style="cyan", no_wrap=True)
+        table.add_column("Created", justify="left", style="magenta")
         table.add_column("Last change", justify="left", )
 
         for row in extracting_data:
@@ -82,7 +82,9 @@ def run_it():
                     running_in_project = False
 
         if "delete" in user_decision:
-            pass
+            title_to_delete = user_decision.split("delete")[1]
+            json_data.delete_the_project(title_to_delete=title_to_delete)
+
 
 
 

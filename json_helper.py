@@ -17,3 +17,7 @@ class JsonHelper:
         sql_obj = SqlHelper()
         new_project = json.dumps({f"{title}":{"date of creation":creation_time,"last change":creation_time}})
         sql_obj.writing_into_database(new_project)
+
+    def delete_the_project(self, title_to_delete):
+        sql_obj = SqlHelper()
+        sql_obj.sql_delete_the_project(title_to_delete=title_to_delete)
