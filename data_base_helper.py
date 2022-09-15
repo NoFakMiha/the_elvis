@@ -58,6 +58,20 @@ class SqlHelper:
         except(Exception, psycopg2.DatabaseError) as error:
             print(error)
 
+    def check_the_project(self, data):
+        try:
+            self.cursor.execute(
+                f'''
+                SELECT * FROM projects
+                WHERE data?'{data}'
+                
+                '''
+            )
+
+            return self.cursor.fetchone()
+        except(Exception, psycopg2.DatabaseError) as error:
+            print(error)
+
     def commit_(self):
         self.conn.commit()
 

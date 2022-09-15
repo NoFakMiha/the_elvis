@@ -1,15 +1,14 @@
 import rich
-from rich.console import  Console
+from rich.console import Console
 from rich.table import Table
 import os
 from json_helper import JsonHelper
 from datetime import datetime
 import json
 
-
-
 json_data = JsonHelper()
 now = datetime.now()
+
 
 class TheMainConsole:
 
@@ -34,48 +33,53 @@ class TheMainConsole:
         console = Console()
         console.print(table)
 
-    def showing_task_table(self, data):
-        task_table = Table(title="Place Holder Project Name")
-        task_table.add_column("To do", justify="left")
-        task_table.add_column("Working on", justify="left")
-        task_table.add_column("Testing")
-        task_table.add_column("Debug")
-        task_table.add_column("Done")
+    @staticmethod
+    def showing_task_table( title, data):
+        print(data[1][title])
+        task_table = Table(title=f"Your are in project:{title}")
+
+
+        for task in data[1][title]:
+            task_table.add_column(task)
+            for row in data[1][title][task]:
+                print(row)
+                task_table.add_row(data[1][title][task])
+
 
         console = Console()
         console.print(task_table)
-
-
-
 
 
 def run_it():
     running = True
     main_console = TheMainConsole()
     main_console.showing_the_table(data=main_console.loading_json_data())
-    running_in_project = True
-    while  running:
+    while running:
         user_decision = input("The project: ")
         # commands
         if "close" in user_decision:  # shut down the program
             running = False
 
         if "new" in user_decision:  # creating new project
-            json_data.adding_project(title=user_decision.split("new")[1], # TODO: it is also taking space with it
+            json_data.adding_project(title=user_decision.split("new")[1],  # TODO: it is also taking space with it
                                      creation_time=now.strftime("%m.%d.%y | %H:%M:%S"))
 
             refresh = JsonHelper()
             new_refreshed_data = refresh.opening_data()
             main_console.showing_the_table(data=new_refreshed_data)
 
-        if "check" in user_decision:  # checking the  project
+        elif "check" in user_decision:  # checking the  project
+            running_in_project = True
+
+            title = user_decision.split("check")[1]
+            project_data = json_data.select_project(title)
+
             while running_in_project:
-                main_console.showing_task_table(data="Nothing")
+                main_console.showing_task_table(title=title, data=project_data)
                 user_decision_in_the_project = input("The task:")
 
                 if "new" in user_decision_in_the_project:
                     pass
-
 
                 if "close" in user_decision_in_the_project:
                     main_console.showing_the_table(data=main_console.loading_json_data())
@@ -86,9 +90,6 @@ def run_it():
             json_data.delete_the_project(title_to_delete=title_to_delete)
             refresh_after_delete = JsonHelper()
             main_console.showing_the_table(refresh_after_delete.opening_data())
-
-
-
 
 
 if __name__ == '__main__':
