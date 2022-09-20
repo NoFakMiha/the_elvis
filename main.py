@@ -34,17 +34,26 @@ class TheMainConsole:
         console.print(table)
 
     @staticmethod
-    def showing_task_table( title, data):
-        print(data[1][title])
+    def showing_task_table(title, filtered_data_till_title):
         task_table = Table(title=f"Your are in project:{title}")
+        task_table.add_column("To do")
+        task_table.add_column("Working on")
+        task_table.add_column("Testing")
+        task_table.add_column("Debug")
+        task_table.add_column("Done")
 
+        filtered_data_till_title = filtered_data_till_title[1][title]
 
-        for task in data[1][title]:
-            task_table.add_column(task)
-            for row in data[1][title][task]:
-                print(row)
-                task_table.add_row(data[1][title][task])
-
+        for todo_task in filtered_data_till_title["to_do"]:
+            task_table.add_row(todo_task)
+        for working_on_task in filtered_data_till_title["working_on"]:
+            task_table.add_row(working_on_task)
+        for testing_task in filtered_data_till_title["testing"]:
+            task_table.add_row(testing_task)
+        for debug_task in filtered_data_till_title["debug"]:
+            task_table.add_row(debug_task)
+        for done_task in filtered_data_till_title["done"]:
+            task_table.add_row(done_task)
 
         console = Console()
         console.print(task_table)
@@ -75,7 +84,7 @@ def run_it():
             project_data = json_data.select_project(title)
 
             while running_in_project:
-                main_console.showing_task_table(title=title, data=project_data)
+                main_console.showing_task_table(title=title, filtered_data_till_title=project_data)
                 user_decision_in_the_project = input("The task:")
 
                 if "new" in user_decision_in_the_project:
