@@ -64,6 +64,7 @@ def run_it():
     main_console = TheMainConsole()
     main_console.showing_the_table(data=main_console.loading_json_data())
     while running:
+        # Main Page
         user_decision = input("The project: ")
         # commands
         if "close" in user_decision:  # shut down the program
@@ -76,7 +77,7 @@ def run_it():
             refresh = JsonHelper()
             new_refreshed_data = refresh.opening_data()
             main_console.showing_the_table(data=new_refreshed_data)
-
+        # Task page
         elif "check" in user_decision:  # checking the  project
             running_in_project = True
 
@@ -88,8 +89,15 @@ def run_it():
                 user_decision_in_the_project = input("The task:")
 
                 if "new" in user_decision_in_the_project:
-                    pass
-
+                    splitting_after_user_decision = user_decision_in_the_project.split("new")[1]
+                    try:
+                        to_which_task = splitting_after_user_decision.split()[0].replace(" ", "")
+                        task_it_self = splitting_after_user_decision.split()[1].replace(" ", "")
+                        json_data.adding_task(project_title=title,task_title=to_which_task, new_task=task_it_self)
+                    except IndexError:
+                        print("You forgot ether  give a name to the task or to which column the task should be assign "
+                              "to")
+                        pass
                 if "close" in user_decision_in_the_project:
                     main_console.showing_the_table(data=main_console.loading_json_data())
                     running_in_project = False
