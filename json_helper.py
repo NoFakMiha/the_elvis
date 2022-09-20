@@ -29,3 +29,9 @@ class JsonHelper:
     def select_project(data):
         sql_obj = SqlHelper()
         return sql_obj.check_the_project(data)
+
+    @staticmethod
+    def adding_task(project_title, task_title, new_task):
+        sql_bj = SqlHelper()
+        sql_bj.adding_task(tittle=project_title,task_title=task_title,new_task=new_task)
+        print(project_title, task_title, new_task)
