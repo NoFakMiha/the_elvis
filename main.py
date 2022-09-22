@@ -4,7 +4,7 @@ from rich.table import Table
 import os
 from json_helper import JsonHelper
 from datetime import datetime
-import json
+
 
 json_data = JsonHelper()
 now = datetime.now()
@@ -28,38 +28,26 @@ class TheMainConsole:
 
         for row in extracting_data:
             table.add_row(row[1], str(row[2]), str(row[3]))
-
-        #    to_dict = json.loads(row)
-        #    for key in to_dict:
-        #        table.add_row(key, to_dict[key]['date of creation'], to_dict[key]["last change"])
         console = Console()
         console.print(table)
 
     @staticmethod
     def showing_task_table(title, filtered_data_till_title):
-        task_table = Table(title=f"Your are in project:{title}")
-        task_table.add_column("To do")
-        task_table.add_column("Working on")
-        task_table.add_column("Testing")
-        task_table.add_column("Debug")
-        task_table.add_column("Done")
+        task_table = Table(title=f"Project:{title}")
 
-        filtered_data_till_title = filtered_data_till_title[1][title]
+        try:
+            for row in filtered_data_till_title:
+                column_tittles = row[0].keys()
+                for tittle in column_tittles:
+                    task_table.add_column(tittle)
 
-        for todo_task in filtered_data_till_title["to_do"]:
-            task_table.add_row(todo_task)
-        for working_on_task in filtered_data_till_title["working_on"]:
-            task_table.add_row(working_on_task)
-        for testing_task in filtered_data_till_title["testing"]:
-            task_table.add_row(testing_task)
-        for debug_task in filtered_data_till_title["debug"]:
-            task_table.add_row(debug_task)
-        for done_task in filtered_data_till_title["done"]:
-            task_table.add_row(done_task)
+        except:
+            print(f"Your are in the Project: {title} but there are no column`s created! Crate new column!")
+
 
         console = Console()
         console.print(task_table)
-
+#
 
 def run_it():
     running = True
@@ -83,19 +71,18 @@ def run_it():
         elif "check" in user_decision:  # checking the  project
             running_in_project = True
 
-            title = user_decision.split("check")[1]
+            title = user_decision.split("check")[1].replace(" ", "")
             project_data = json_data.select_project(title)
 
             while running_in_project:
                 main_console.showing_task_table(title=title, filtered_data_till_title=project_data)
                 user_decision_in_the_project = input("The task:")
 
-                if "new" in user_decision_in_the_project:
-                    splitting_after_user_decision = user_decision_in_the_project.split("new")[1]
+                if "new column" in user_decision_in_the_project:
+                    column_tittle = user_decision_in_the_project.split("column")[1].replace(" ", "")
                     try:
-                        to_which_task = splitting_after_user_decision.split()[0].replace(" ", "")
-                        task_it_self = splitting_after_user_decision.split()[1].replace(" ", "")
-                        json_data.adding_task(project_title=title,task_title=to_which_task, new_task=task_it_self)
+
+                        json_data.adding_task(project_title=title, column_tittle=column_tittle)
                     except IndexError:
                         print("You forgot ether  give a name to the task or to which column the task should be assign "
                               "to")

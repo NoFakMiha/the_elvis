@@ -59,27 +59,27 @@ class SqlHelper:
         except(Exception, psycopg2.DatabaseError) as error:
             print(error)
 
-    def check_the_project(self, data):
+    def check_the_project(self, tittle):
         try:
             self.cursor.execute(
                 f'''
-                SELECT * FROM projects
-                WHERE data?'{data}'
+                SELECT task FROM projects_and_task
+                WHERE project_name = '{tittle}'
                 
                 '''
             )
 
-            return self.cursor.fetchone()
+            return self.cursor.fetchall()
         except(Exception, psycopg2.DatabaseError) as error:
             print(error)
 
-    def adding_task(self, tittle, task_title, new_task):
-        self.cursor.execute('''
-                SELECT * FROM projects
-                WHERE data ? ' the novak'->> 'last change'
+    def adding_task(self, tittle, column_tittle):
+        self.cursor.execute(f'''
+                UPDATE projects_and_task
+                SET task = '{column_tittle}'
+                WHERE project_name = '{tittle}'
                 ''')
 
-        print(self.cursor.fetchall())
         self.commit_()
         self.close_connection()
 

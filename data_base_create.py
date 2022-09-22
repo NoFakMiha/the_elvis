@@ -10,12 +10,14 @@ con = psycopg2.connect(database="postgres", user=USER, password=SQL_PW, host=SQL
 cursor = con.cursor()
 
 cursor.execute('''
-   SELECT * FROM projects_and_task
+   SELECT task FROM projects_and_task
+   WHERE project_name = 'miha'
+   
 ''')
 
 data= cursor.fetchall()
+print(data)
 
-print(data[0][1])
 con.commit()
 con.close()
 
