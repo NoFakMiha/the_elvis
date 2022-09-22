@@ -73,12 +73,14 @@ class SqlHelper:
             print(error)
 
     def adding_task(self, tittle, task_title, new_task):
-        self.cursor.execute(f'''
-        INSERT INTO projects(data)
-        WHERE data?' test123{'to_do'}'
-        VALUES
-        ('Miha je car')
-        ''')
+        self.cursor.execute('''
+                SELECT * FROM projects
+                WHERE data ? ' the novak'->> 'last change'
+                ''')
+
+        print(self.cursor.fetchall())
+        self.commit_()
+        self.close_connection()
 
     def commit_(self):
         self.conn.commit()

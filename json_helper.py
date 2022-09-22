@@ -34,4 +34,4 @@ class JsonHelper:
     def adding_task(project_title, task_title, new_task):
         sql_bj = SqlHelper()
         sql_bj.adding_task(tittle=project_title,task_title=task_title,new_task=new_task)
-        print(project_title, task_title, new_task)
+        #print(project_title, task_title, new_task)
