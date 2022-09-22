@@ -12,7 +12,10 @@ cursor = con.cursor()
 cursor.execute('''
    SELECT * FROM projects_and_task
 ''')
-print(cursor.fetchall())
+
+data= cursor.fetchall()
+
+print(data[0][1])
 con.commit()
 con.close()
 

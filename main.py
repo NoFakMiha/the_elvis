@@ -27,9 +27,11 @@ class TheMainConsole:
         table.add_column("Last change", justify="left", )
 
         for row in extracting_data:
-            to_dict = json.loads(row)
-            for key in to_dict:
-                table.add_row(key, to_dict[key]['date of creation'], to_dict[key]["last change"])
+            table.add_row(row[1], str(row[2]), str(row[3]))
+
+        #    to_dict = json.loads(row)
+        #    for key in to_dict:
+        #        table.add_row(key, to_dict[key]['date of creation'], to_dict[key]["last change"])
         console = Console()
         console.print(table)
 
@@ -71,7 +73,7 @@ def run_it():
             running = False
 
         if "new" in user_decision:  # creating new project
-            json_data.adding_project(title=user_decision.split("new")[1],  # TODO: it is also taking space with it
+            json_data.adding_project(tittle=user_decision.split("new")[1].replace(" ", ""),  # TODO: it is also taking space with it
                                      creation_time=now.strftime("%m.%d.%y | %H:%M:%S"))
 
             refresh = JsonHelper()
@@ -103,7 +105,7 @@ def run_it():
                     running_in_project = False
 
         if "delete" in user_decision:
-            title_to_delete = user_decision.split("delete")[1]
+            title_to_delete = user_decision.split("delete")[1].replace(" ", "")
             json_data.delete_the_project(title_to_delete=title_to_delete)
             refresh_after_delete = JsonHelper()
             main_console.showing_the_table(refresh_after_delete.opening_data())

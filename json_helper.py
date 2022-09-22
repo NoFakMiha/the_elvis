@@ -11,14 +11,12 @@ class JsonHelper:
         self.list_clean_data = [json.dumps(x[1]) for x in self.data]
 
     def opening_data(self):
-        return self.list_clean_data
+        return self.data
 
     @staticmethod
-    def adding_project(title, creation_time):
+    def adding_project(tittle, creation_time):
         sql_obj = SqlHelper()
-        new_project = json.dumps({f"{title}": {"date of creation": creation_time, "last change": creation_time,
-                                               "to_do": [], "working_on": [], "testing": [], "debug": [], "done": []}})
-        sql_obj.writing_into_database(new_project)
+        sql_obj.writing_into_database(tittle=tittle, timestamp=creation_time)
 
     @staticmethod
     def delete_the_project(title_to_delete):

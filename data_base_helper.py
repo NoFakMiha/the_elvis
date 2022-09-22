@@ -24,21 +24,21 @@ class SqlHelper:
     def get_data(self):
         self.cursor.execute(
             '''
-            SELECT * FROM projects;
+            SELECT * FROM projects_and_task;
             '''
 
         )
 
         return self.cursor.fetchall()
 
-    def writing_into_database(self, data):
+    def writing_into_database(self, tittle,timestamp ):
 
         try:
 
             self.cursor.execute(f'''
-            INSERT INTO projects(data)
+            INSERT INTO projects_and_task(project_name,project_created_on, project_last_change)
             VALUES
-            ('{data}')
+            ('{tittle}', CURRENT_TIMESTAMP,  CURRENT_TIMESTAMP)
             ''')
             self.commit_()
             self.close_connection()
@@ -50,7 +50,8 @@ class SqlHelper:
         try:
             self.cursor.execute(
                 f'''
-                UPDATE projects SET data = data - '{title_to_delete}';
+                DELETE FROM projects_and_task
+                WHERE project_name = '{title_to_delete}'
                 '''
             )
             self.commit_()
