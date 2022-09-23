@@ -10,8 +10,7 @@ con = psycopg2.connect(database="postgres", user=USER, password=SQL_PW, host=SQL
 cursor = con.cursor()
 
 cursor.execute('''
-   SELECT task FROM projects_and_task
-   WHERE project_name = 'miha'
+   SELECT * FROM projects_and_task
    
 ''')
 

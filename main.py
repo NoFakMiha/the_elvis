@@ -5,7 +5,6 @@ import os
 from json_helper import JsonHelper
 from datetime import datetime
 
-
 json_data = JsonHelper()
 now = datetime.now()
 
@@ -33,21 +32,48 @@ class TheMainConsole:
 
     @staticmethod
     def showing_task_table(title, filtered_data_till_title):
+
         task_table = Table(title=f"Project:{title}")
+        task_table.add_column("To do")
+        task_table.add_column("Checking")
+        task_table.add_column("Working on")
+        task_table.add_column("Debugging")
+        task_table.add_column("Done")
 
-        try:
-            for row in filtered_data_till_title:
-                column_tittles = row[0].keys()
-                for tittle in column_tittles:
-                    task_table.add_column(tittle)
+        filtered_tasks = filtered_data_till_title[0][0]
 
-        except:
-            print(f"Your are in the Project: {title} but there are no column`s created! Crate new column!")
+        row = [[],["novak"],[],[],["test"]]
+        length = []
 
+        for i in filtered_tasks['to_do']:
+            row[0].append(i)
+        for i in filtered_tasks['checking']:
+            row[1].append(i)
+        for i in filtered_tasks['working_on']:
+            row[2].append(i)
+        for i in filtered_tasks['debuging']:
+            row[3].append(i)
+        for i in filtered_tasks['done']:
+            row[4].append(i)
+
+        for i in range(len(row)):
+            length.append(len(row[i]))
+        max_number = max(length)
+
+        for number, value in enumerate(row):
+            if not value:
+                row[number].append("")
+
+        task_table.add_row(row[0][0],row[1][0],row[2][0],row[3][0],row[4][0])
 
         console = Console()
         console.print(task_table)
-#
+
+
+
+
+
+
 
 def run_it():
     running = True
@@ -61,7 +87,8 @@ def run_it():
             running = False
 
         if "new" in user_decision:  # creating new project
-            json_data.adding_project(tittle=user_decision.split("new")[1].replace(" ", ""),  # TODO: it is also taking space with it
+            json_data.adding_project(tittle=user_decision.split("new")[1].replace(" ", ""),
+                                     # TODO: it is also taking space with it
                                      creation_time=now.strftime("%m.%d.%y | %H:%M:%S"))
 
             refresh = JsonHelper()
@@ -81,11 +108,10 @@ def run_it():
                 if "new" in user_decision_in_the_project:
                     column_with_tittle = user_decision_in_the_project.split("new")[1]
 
-
                     try:
                         split_tittle_task = column_with_tittle.split()
 
-                        json_data.adding_task(project_title=title, column_tittle=split_tittle_task[0],
+                        json_data.adding_task(project_title=title, column_tittle_task=split_tittle_task[0],
                                               task=split_tittle_task[1])
                     except IndexError:
                         print("You forgot ether  give a name to the task or to which column the task should be assign "

@@ -31,8 +31,8 @@ class JsonHelper:
         return sql_obj.check_the_project(data)
 
     @staticmethod
-    def adding_task(project_title, column_tittle, task):
+    def adding_task(project_title, column_tittle_task, task):
         sql_bj = SqlHelper()
-        column_tittle = json.dumps({column_tittle:[]})
-        sql_bj.adding_task(tittle=project_title, column_tittle=column_tittle, task=task)
-        #print(project_title, task_title, new_task)
+        column_tittle_task = json.dumps({column_tittle_task:[task]})
+        print(column_tittle_task)
+        sql_bj.adding_task(tittle=project_title, column_tittle_task=column_tittle_task)

@@ -73,10 +73,10 @@ class SqlHelper:
         except(Exception, psycopg2.DatabaseError) as error:
             print(error)
 
-    def adding_task(self, tittle, column_tittle, task):
+    def adding_task(self, tittle, column_tittle_task):
         self.cursor.execute(f'''
                 UPDATE projects_and_task
-                SET task = '{column_tittle}'
+                SET task = task || '{column_tittle_task}' ::jsonb
                 WHERE project_name = '{tittle}'
                 ''')
 
