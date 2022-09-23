@@ -78,11 +78,15 @@ def run_it():
                 main_console.showing_task_table(title=title, filtered_data_till_title=project_data)
                 user_decision_in_the_project = input("The task:")
 
-                if "new column" in user_decision_in_the_project:
-                    column_tittle = user_decision_in_the_project.split("column")[1].replace(" ", "")
-                    try:
+                if "new" in user_decision_in_the_project:
+                    column_with_tittle = user_decision_in_the_project.split("new")[1]
 
-                        json_data.adding_task(project_title=title, column_tittle=column_tittle)
+
+                    try:
+                        split_tittle_task = column_with_tittle.split()
+
+                        json_data.adding_task(project_title=title, column_tittle=split_tittle_task[0],
+                                              task=split_tittle_task[1])
                     except IndexError:
                         print("You forgot ether  give a name to the task or to which column the task should be assign "
                               "to")

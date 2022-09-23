@@ -16,7 +16,9 @@ class JsonHelper:
     @staticmethod
     def adding_project(tittle, creation_time):
         sql_obj = SqlHelper()
-        sql_obj.writing_into_database(tittle=tittle, timestamp=creation_time)
+        task_table_json = json.dumps({'to_do':[], 'working_on':[],
+            'checking':[], 'debuging':[], 'done':[]})
+        sql_obj.writing_into_database(tittle=tittle,task_table_json=task_table_json)
 
     @staticmethod
     def delete_the_project(title_to_delete):
@@ -29,8 +31,8 @@ class JsonHelper:
         return sql_obj.check_the_project(data)
 
     @staticmethod
-    def adding_task(project_title, column_tittle):
+    def adding_task(project_title, column_tittle, task):
         sql_bj = SqlHelper()
         column_tittle = json.dumps({column_tittle:[]})
-        sql_bj.adding_task(tittle=project_title, column_tittle=column_tittle)
+        sql_bj.adding_task(tittle=project_title, column_tittle=column_tittle, task=task)
         #print(project_title, task_title, new_task)
